@@ -1,5 +1,6 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
+import { fetchCountries } from './fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 const countryInfo = document.querySelector('.country-info');
@@ -9,31 +10,20 @@ let deb = require('lodash.debounce');
 
 request.addEventListener('input', deb(search, DEBOUNCE_DELAY));
 
-function fetchCountries(name) {
-  return fetch(
-    `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
-  ).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
-}
-
 function countryCard(country) {
   country.map(({ flags, name, capital, population, languages }) => {
     const lang = Object.values(languages).join(', ');
     const countryCard = `<div class='country-card'>
       <div class='card-title'>
-        <img src='${flags.png}' alt='${name.official}' />
+        <img class="flag_style" src='${flags.png}' alt='${name.official}' />
         <h2>${name.official}</h2>
       </div>
       <div class='card-body'>
-        <p class='card-text'><span class='card-text_key'>capital: </span>${capital.join(
+        <p class='card-text'><span class='card-text_key'>Capital: </span>${capital.join(
           ', '
         )}</p>
-        <p class='card-text'><span class='card-text_key'>population: </span>${population}</p>
-        <p class='card-text'><span class='card-text_key'>languages: </span>${lang}</p>
+        <p class='card-text'><span class='card-text_key'>Population: </span>${population}</p>
+        <p class='card-text'><span class='card-text_key'>Languages: </span>${lang}</p>
       </div>
     </div>`;
     countryInfo.innerHTML = countryCard;
@@ -44,7 +34,7 @@ function countryLists(country) {
   const countryArr = country.map(el => {
     const element = document.createElement('li');
     element.innerHTML = `<div class='card-title'>
-        <img src='${el.flags.png}' alt='${el.name.official}' />
+        <img class="flag_style" src='${el.flags.png}' alt='${el.name.official}' />
         <h2>${el.name.official}</h2>
       </div>`;
     element.classList.add('country-style');
@@ -55,7 +45,7 @@ function countryLists(country) {
 }
 
 function search() {
-  const value = request.value;
+  const value = request.value.trim();
   if (value.length == 0) {
     clearArticlesContainer();
     return;

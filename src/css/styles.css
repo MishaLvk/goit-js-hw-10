@@ -10,6 +10,8 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 #search-box {
@@ -17,4 +19,28 @@ body {
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+}
+
+.flag_style {
+  width: 50px;
+}
+
+h2 {
+  margin-left: 10px;
+  margin-block-start: 0.2em;
+  margin-block-end: 0.2em;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.card-text_key {
+  font-weight: bold;
 }
